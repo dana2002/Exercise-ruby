@@ -10,15 +10,23 @@ begin
 
   puts "descripcion: "
   description = gets.chomp
-  puts "public: "
+  puts "Quieres el gist publico? si/no"
   public = gets.chomp
+
+  if public == 'si'
+    public = true
+  elsif public == 'no'
+    public = false
+  else
+    puts "respuesta incorrecta"
+  end
 
   uri = URI.parse('https://api.github.com/gists')
 
 
   data = {
             'description' => "#{description}",
-            'public' => "#{public}",
+            'public' => public,
             'files' => {
               "#{namefile}" => {
                 'content' => "#{content}"
@@ -32,7 +40,7 @@ begin
   http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
   request = Net::HTTP::Post.new(uri.request_uri)
-  request['Authorization'] = 'token eb84f8680cdf37d2a1e4ff58cdc432f336412757'
+  request['Authorization'] = 'token c90f2da8cea3cef00e96e96bc1433d7024479715'
 
   request.body = data.to_json
   response = http.request(request)
@@ -42,7 +50,11 @@ begin
 
   puts url['url']
   
-rescue => exception
-  p exception.message
+rescue Errno::ENOENT => e 
+  p "Archivo no encontrado"
+  retry
+
+rescue SocketError => exception
+  p "error de conexion"
   retry
 end
