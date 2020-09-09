@@ -55,6 +55,6 @@ rescue Errno::ENOENT => e
   retry
 
 rescue SocketError => exception
-  p "error de conexion"
+  p "Error de conexión"
   retry
 end
