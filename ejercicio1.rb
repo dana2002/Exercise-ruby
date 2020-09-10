@@ -4,10 +4,10 @@ require 'json'
 require 'httparty'
 
 begin
-  puts "ingrese ruta dal archivo: "
+  puts "Ingrese nombre del archivo "
   namefile = gets.chomp
   content = File.read(namefile)
-  puts "descripcion: "
+  puts "Descripcion: "
   description = gets.chomp
   puts "Quieres el gist publico? si/no"
   public = gets.chomp
@@ -17,7 +17,7 @@ begin
   elsif public == 'no'
     public = false
   else
-    puts "respuesta incorrecta"
+    puts "Respuesta incorrecta"
   end
 
   uri = URI.parse('https://api.github.com/gists')
