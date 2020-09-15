@@ -2,6 +2,9 @@ require 'net/http'
 require 'uri'
 require 'json'
 require 'httparty'
+require 'dotenv'
+
+URL = 'https://api.github.com/gists'
 
 begin
   puts "Ingrese nombre del archivo "
@@ -9,24 +12,29 @@ begin
   content = File.read(namefile)
   puts "Descripcion: "
   description = gets.chomp
-  puts "Quieres el gist publico? si/no"
-  public = gets.chomp
   
-  if public == 'si'
-    public = true
-  elsif public == 'no'
-    public = false
-  else
-    puts "Respuesta incorrecta"
+  loop do
+    puts "Quieres el gist publico? Si/No"
+    state = gets.chomp.capitalize
+  
+    if state == 'Si'
+      @state = true
+      break
+    elsif state == 'No'
+      @state = false
+      break
+    else
+      puts "Respuesta incorrecta"
+    end
   end
 
-  uri = URI.parse('https://api.github.com/gists')
+  uri = URI.parse(URL)
   data = {
-            'description' => "#{description}",
-            'public' => public,
+            'description' => description,
+            'public' => @state,
             'files' => {
-              "#{namefile}" => {
-                'content' => "#{content}"
+              namefile => {
+                'content' => content
               }
             }
           }
@@ -36,7 +44,8 @@ begin
   http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
   request = Net::HTTP::Post.new(uri.request_uri)
-  request['Authorization'] = 'token bb3f0a45790a8b18bf1468c70957c55293e7fe32'
+  Dotenv.load
+  request['Authorization'] = "token #{ENV['GITHUB_ACCESS_TOKEN']}"
   request.body = data.to_json
 
   response = http.request(request)
