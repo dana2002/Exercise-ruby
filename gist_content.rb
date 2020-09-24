@@ -5,6 +5,7 @@ class Received_values
     @namefile = namefile
     @description = description
     @state = state
+    @content = nil
   end
 
   def file_existence
@@ -16,6 +17,6 @@ class Received_values
   end  
 
   def read_content
-    content = File.read(@namefile)
+    @content = File.read(@namefile)
   end
 end
