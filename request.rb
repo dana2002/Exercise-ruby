@@ -7,7 +7,7 @@ require 'dotenv'
 URL = 'https://api.github.com/gists'
 
 class Assemble
-  attr_reader :intentar_de_nuevo, :response
+  attr_reader :response
 
   def initialize(namefile, description, state, content)
     @namefile = namefile
