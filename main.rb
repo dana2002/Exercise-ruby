@@ -2,7 +2,7 @@ require_relative 'request'
 require_relative 'gist_content'
 
 loop do
-  puts "Ingrese nombre del archivo "
+  puts "Ingrese ruta del archivo"
   namefile = gets.chomp
   puts "Descripcion: "
   description = gets.chomp
