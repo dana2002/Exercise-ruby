@@ -2,7 +2,7 @@ require_relative 'request'
 require_relative 'gist_content'
 
 loop do
-  puts "Ingrese nombre del archivo "
+  puts "Ingrese nombre del archivo"
   namefile = gets.chomp
   puts "Descripcion: "
   description = gets.chomp
@@ -24,22 +24,25 @@ loop do
 
   values = Received_values.new(namefile, description, @state)
   values.file_existence
-  request =  Assemble.new(namefile, description, @state, values.content)
-  request.body
+  if values.content != nil
+    request =  Assemble.new(namefile, description, @state, values.content)
+    p request
+    request.body
 
-  begin
-    request.request
-  rescue SocketError => exception
-    p "Error de conexión"
-    p "Intentar de nuevo?"
-    intentar_de_nuevo = gets.chomp.capitalize
+    begin
+      request.request
+    rescue SocketError => exception
+      p "Error de conexión"
+      p "Intentar de nuevo?"
+      intentar_de_nuevo = gets.chomp.capitalize
 
-    if intentar_de_nuevo == "No"
-      break
+      if intentar_de_nuevo == "No"
+        break
+      end
+    else
+      if request.response.code == "201"  
+        break
+      end
     end
-  else
-    if request.response.code == "201"  
-      break
-    end
-  end
+  end  
 end
