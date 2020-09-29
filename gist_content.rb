@@ -19,7 +19,7 @@ class Received_values
   def read_content
     Dir[@namefile + "/**/*"].each do |f|
       @content = File.read(f)
-      p @content
+      # p @content
     # @content = File.read(@namefile)
     end
   end
