@@ -26,7 +26,6 @@ loop do
   values.file_existence
   if values.content != nil
     request =  Assemble.new(namefile, description, @state, values.content)
-    p request
     request.body
 
     begin
