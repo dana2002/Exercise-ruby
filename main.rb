@@ -24,8 +24,9 @@ loop do
 
   values = Received_values.new(namefile, description, @state)
   values.file_existence
-  if values.content != nil
-    request =  Assemble.new(namefile, description, @state, values.content)
+
+  if values.content
+    request = Assemble.new(namefile, description, @state, values.content)
     request.body
 
     begin
