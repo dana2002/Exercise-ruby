@@ -3,7 +3,7 @@ require_relative 'gist_content'
 
 loop do
   puts "Ingrese la ruta"
-  namefile = gets.chomp
+  pathname = gets.chomp
   puts "Descripcion:"
   description = gets.chomp
 
@@ -22,13 +22,12 @@ loop do
     end
   end
 
-  values = Received_values.new(namefile, description, @state)
-  values.file_existence
-  if values.content != nil
-    request =  Assemble.new(namefile, description, @state, values.content)
-    while values.content < 1
-      request.body
-    end
+  values = Received_values.new(pathname, description, @state)
+  values.path_existence
+
+  if values.data
+    values.body
+    request = Assemble.new(description, @state, values.data)
 
     begin
       request.request
