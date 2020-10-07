@@ -7,7 +7,6 @@ class Received_values
     @pathname = pathname
     @description = description
     @state = state
-    @content = nil
   end
 
   def path_existence
@@ -34,7 +33,6 @@ class Received_values
       @filename = File.basename(x)
       @content = File.read(x)
       @data["files"][@filename] = content = {'content' => @content} 
-    end                  
-    # p @data
+    end         
   end  
 end
