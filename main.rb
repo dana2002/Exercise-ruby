@@ -2,27 +2,27 @@ require_relative 'request'
 require_relative 'gist_content'
 
 loop do
-  puts "Ingrese la ruta"
-  pathname = gets.chomp
-  puts "Descripcion:"
+  puts "Enter the path:"
+  path = gets.chomp
+  puts "Description:"
   description = gets.chomp
 
   loop do
-    puts "Quieres el gist publico? Si/No"
+    puts "Do you want the public gist? Yes/No"
     state = gets.chomp.capitalize
 
-    if state == 'Si'
+    if state == 'Yes'
       @state = true
       break
     elsif state == 'No'
       @state = false
       break
     else
-      puts "Respuesta incorrecta"
+      puts "Wrong answer"
     end
   end
 
-  values = Received_values.new(pathname, description, @state)
+  values = Received_values.new(path, description, @state)
   values.path_existence
 
   if values.data
@@ -32,17 +32,13 @@ loop do
     begin
       request.request
     rescue SocketError => exception
-      p "Error de conexión"
-      p "Intentar de nuevo?"
-      intentar_de_nuevo = gets.chomp.capitalize
+      p "Connection error"
+      p "Try again?"
+      try_again = gets.chomp.capitalize
 
-      if intentar_de_nuevo == "No"
-        break
-      end
+      break if try_again == "No"
     else
-      if request.response.code == "201"  
-        break
-      end
+      break if request.response.code == "201"  
     end
   end
 end

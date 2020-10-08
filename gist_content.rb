@@ -3,19 +3,15 @@ require 'pathname'
 class Received_values
   attr_reader :data
 
-  def initialize(pathname, description, state)
-    @pathname = pathname
+  def initialize(path, description, state)
+    @path = path
     @description = description
     @state = state
   end
 
   def path_existence
-    if Dir.exist?(@pathname)
-     self.body
-    else
-     p "La ruta no existe"
-    end
-   end
+    Dir.exist?(@path) ? self.body : puts("The path does not exist")
+  end
    
   def body
     @data = {
@@ -28,7 +24,7 @@ class Received_values
   end
   
   def read_path
-    path = Dir[@pathname + "/**/*"]
+    path = Dir[@path + "/**/*"]
     path.each do |x|
       @filename = File.basename(x)
       @content = File.read(x)
