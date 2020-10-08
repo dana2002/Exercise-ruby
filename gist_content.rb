@@ -32,7 +32,7 @@ class Received_values
     path.each do |x|
       @filename = File.basename(x)
       @content = File.read(x)
-      @data["files"][@filename] = content = {'content' => @content} 
+      @data["files"][@filename] = content = { 'content' => @content }  
     end         
   end  
 end
