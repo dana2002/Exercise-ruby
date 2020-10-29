@@ -25,6 +25,7 @@ class Received_values
   
   def read_path
     path = Dir[@path + "/**/*"]
+
     path.each do |x|
       @filename = File.basename(x)
       @content = File.read(x)

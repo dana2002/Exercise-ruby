@@ -24,13 +24,12 @@ loop do
 
   values = Received_values.new(path, description, @state)
   values.path_existence
-
   if values.data
     values.body
-    request = Assemble.new(description, @state, values.data)
-
+    request = Assemble.new(values.data)
     begin
       request.request
+
     rescue SocketError => exception
       p "Connection error"
       p "Try again?"
