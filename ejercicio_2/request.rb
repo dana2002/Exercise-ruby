@@ -9,7 +9,7 @@ URL = 'https://api.github.com/gists'
 # @author Dana
 # Make the gist request.
 class Assemble
-  # To be able to call the data response from another class.
+  # To be able to call the response variable from another class.
   attr_reader :response
 
   # Initialize the variables of the class:
@@ -38,4 +38,3 @@ class Assemble
     puts url['url']
   end
 end
-#RESOLVER COMENTARIOS DE TEST Y HACER QUE ME APAREZCAN LOS DOS ARCHIVOS EN YARDOC
