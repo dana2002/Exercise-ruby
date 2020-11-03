@@ -6,15 +6,19 @@ require 'dotenv'
 
 URL = 'https://api.github.com/gists'
 
+# @author Dana
+# Make the gist request.
 class Assemble
+  # To be able to call the response variable from another class.
   attr_reader :response
 
-  def initialize(description, state, data)
-    @description = description
-    @state = state
+  # Initialize the variables of the class:
+  # 'data' is the hash with the body of the gist.
+  def initialize(data)
     @data = data
-  end 
+  end
   
+  # Makes the request post to the api and returns the url of the gist.
   def request
     uri = URI.parse(URL)
 
