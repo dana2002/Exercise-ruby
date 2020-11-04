@@ -1,11 +1,11 @@
 require_relative '../gist_content'
 require 'spec_helper'
 
-path = '../ejercicio_2/spec/test'
-description = 'description'
-state = true
-
 describe Received_values do
+  let(:path) { '../ejercicio_2/spec/test' }
+  let(:description) { 'description' }
+  let(:state) { true }
+  
   describe '#path_existence' do
     context 'when valid' do
       it 'calls the body method' do
