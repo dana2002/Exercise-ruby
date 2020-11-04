@@ -9,11 +9,9 @@ URL = 'https://api.github.com/gists'
 class Assemble
   attr_reader :response
 
-  def initialize(description, state, data)
-    @description = description
-    @state = state
+  def initialize(data)
     @data = data
-  end 
+  end
   
   def request
     uri = URI.parse(URL)
